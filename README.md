@@ -16,10 +16,20 @@ mvn spring-boot:run
 Open <http://localhost:8080>. The file-backed H2 database is created in `./data/`, and realistic
 sample courses are loaded from `data.sql` on the first run.
 
+### Demo administrator
+
+An administrator account is seeded automatically on startup for demonstration and testing:
+
+- Email: `admin@coursecompass.local`
+- Password: `AdminPass123!`
+
 ## Features
 
 - Semantic, responsive Thymeleaf pages styled with Bootstrap
+- Secure registration and login with BCrypt password encoding
+- Role-based access for administrators, instructors, and students
 - Validated course creation form
+- Admin-only management workspace for editing and deleting courses
 - Spring Data JPA persistence with generated IDs and timestamps
 - Server-side filtering by category and difficulty
 - Server-side sorting and pagination
