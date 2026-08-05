@@ -30,6 +30,11 @@ a {
     border: 1px solid rgba(48, 70, 197, .12);
 }
 
+.auth-page,
+.admin-page {
+    background: linear-gradient(180deg, #f8faff 0%, #fff 100%);
+}
+
 .page-header {
     background: var(--compass-soft);
 }
@@ -70,6 +75,24 @@ textarea.form-control {
     max-width: 820px;
 }
 
+.auth-shell {
+    max-width: 640px;
+}
+
+.auth-support,
+.admin-hero {
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid rgba(48, 70, 197, .08);
+}
+
+.account-menu {
+    min-width: 260px;
+}
+
+.logout-btn {
+    border: 1px solid rgba(220, 53, 69, .18);
+}
+
 .step-number {
     display: inline-grid;
     place-items: center;
@@ -95,6 +118,14 @@ textarea.form-control {
 
 .details-card {
     top: 6rem;
+}
+
+.admin-actions {
+    margin-top: 1.5rem;
+}
+
+.admin-table th {
+    white-space: nowrap;
 }
 
 @media (max-width: 576px) {

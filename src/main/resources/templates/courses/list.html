@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +19,8 @@
                     <h1 class="display-5 fw-bold mb-2">Choose your next direction</h1>
                     <p class="text-secondary mb-md-0">Filter and compare practical courses from trusted instructors.</p>
                 </div>
-                <a style="color: white !important" class="btn btn-primary mt-3 mt-md-0" th:href="@{/courses/new}">+ Add a course</a>
+                <a sec:authorize="hasAnyRole('ADMIN', 'INSTRUCTOR')" style="color: white !important"
+                   class="btn btn-primary mt-3 mt-md-0" th:href="@{/courses/new}">+ Add a course</a>
             </div>
         </div>
     </section>
@@ -72,6 +74,12 @@
                 </p>
                 <a th:if="${selectedCategory != null or selectedDifficulty != null}" th:href="@{/courses}"
                    class="small">Clear filters</a>
+            </div>
+
+            <div sec:authorize="isAnonymous()" class="alert alert-light border mb-4">
+                <strong>Want to publish a course?</strong>
+                <a th:href="@{/register}" class="alert-link">Create an instructor account</a>
+                or <a th:href="@{/login}" class="alert-link">sign in</a>.
             </div>
 
             <div th:if="${coursePage.empty}" class="text-center bg-light rounded-4 py-5 px-3">

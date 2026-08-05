@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +16,7 @@
             <span th:text="${successMessage}">Course saved.</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <a class="text-decoration-none" th:href="@{/courses}">← Back to courses</a>
+        <a class="text-decoration-none" th:href="@{/courses}">&larr; Back to courses</a>
         <article class="row g-5 mt-1">
             <div class="col-lg-8">
                 <div class="d-flex gap-2 mb-3">
@@ -24,6 +25,13 @@
                 </div>
                 <h1 class="display-5 fw-bold" th:text="${course.title}">Course title</h1>
                 <p class="lead text-secondary">Taught by <strong class="text-dark" th:text="${course.instructor}">Instructor</strong></p>
+                <div sec:authorize="hasRole('ADMIN')" class="admin-actions d-flex flex-wrap gap-2 mb-4">
+                    <a class="btn btn-outline-primary" th:href="@{/courses/{id}/edit(id=${course.id})}">Edit course</a>
+                    <form th:action="@{/courses/{id}/delete(id=${course.id})}" method="post"
+                          onsubmit="return confirm('Delete this course record?');">
+                        <button class="btn btn-outline-danger" type="submit">Delete course</button>
+                    </form>
+                </div>
                 <hr class="my-4">
                 <h2 class="h4">About this course</h2>
                 <p class="course-description" th:text="${course.description}">Description</p>

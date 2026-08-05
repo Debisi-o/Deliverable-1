@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -38,6 +39,8 @@ class CourseControllerTest {
     void invalidCourseIsRejectedWithPlainLanguageErrors() throws Exception {
         long before = repository.count();
         mockMvc.perform(post("/courses")
+                        .with(SecurityMockMvcRequestPostProcessors.user("instructor@example.com").roles("INSTRUCTOR"))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .param("title", "")
                         .param("instructor", "")
                         .param("description", "Too short")
@@ -56,6 +59,8 @@ class CourseControllerTest {
     void validCoursePersistsAndRedirectsToItsDetails() throws Exception {
         long before = repository.count();
         mockMvc.perform(post("/courses")
+                        .with(SecurityMockMvcRequestPostProcessors.user("instructor@example.com").roles("INSTRUCTOR"))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .param("title", "Test-Driven Spring")
                         .param("instructor", "Ada James")
                         .param("description", "Build reliable Spring applications through focused automated tests.")
